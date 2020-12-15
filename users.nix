@@ -1,13 +1,13 @@
 { pkgs, ... }:
 {
   users.extraGroups = {
-    admin = { gid = 10000; };
+    simkir = { gid = 1000; };
   };
 
-  users.extraUsers.admin = {
-     description = "Administrator";
-     home = "/home/admin";
-     group = "admin";
+  users.extraUsers.simkir = {
+     description = "Simen Kirkvik";
+     home = "/home/simkir";
+     group = "simkir";
      extraGroups = [
        "users"
        "wheel"

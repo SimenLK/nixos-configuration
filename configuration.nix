@@ -1,7 +1,7 @@
 { pkgs, config, ...}:
 {
   networking = {
-    hostName = "nixos";
+    hostName = "church";
     domain = "local";
     search = [ "local" ];
   };
