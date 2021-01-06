@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   users.extraGroups = {
-    simkir = { gid = 1000; };
+    simkir = { gid = 10000; };
   };
 
   users.extraUsers.simkir = {

@@ -12,7 +12,6 @@
     desktop.enable = false;
     desktop.keybase.enable = false;
     cachix.enable = true;
-    nodeExporter.enable = false;
 
     os = {
       boot = {

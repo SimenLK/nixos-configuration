@@ -29,12 +29,11 @@ let
     services.xserver.enableCtrlAltBackspace = true;
     services.xserver.layout = "us";
     services.xserver.xkbVariant = "altgr-intl";
-    services.xserver.xkbOptions = "eurosign:e";
+    services.xserver.xkbOptions = [ "eurosign:e" "ctrl:swapcaps" ];
 
     services.xserver.displayManager.gdm.enable = true;
     services.xserver.displayManager.job.logToFile = true;
     services.xserver.desktopManager.xterm.enable = true;
-    services.xserver.wacom.enable = true;
 
     services.upower.enable = true;
 
