@@ -16,13 +16,13 @@
     os = {
       boot = {
         uefi = true;
-        device = "/dev/sda";
+        device = "/dev/nvme0n1p1";
       };
 
       networkmanager.enable = true;
       externalInterface = "eno2";
 
-      docker.enable = false;
+      docker.enable = true;
 
       adminAuthorizedKeys = [
       ];
