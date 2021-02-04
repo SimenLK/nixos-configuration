@@ -23,6 +23,7 @@ let
       file
       bc
       sshuttle
+      lshw
       lsof
       patchelf
       binutils

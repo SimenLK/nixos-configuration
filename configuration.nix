@@ -9,8 +9,8 @@
   security.pam.services.sshd.googleAuthenticator.enable = true;
 
   features = {
-    desktop.enable = false;
-    desktop.keybase.enable = false;
+    desktop.enable = true;
+    desktop.keybase.enable = true;
     cachix.enable = true;
 
     os = {
@@ -23,9 +23,6 @@
       externalInterface = "eno2";
 
       docker.enable = true;
-
-      adminAuthorizedKeys = [
-      ];
     };
 
     lan.enable = false;

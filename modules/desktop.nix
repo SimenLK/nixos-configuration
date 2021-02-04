@@ -29,7 +29,7 @@ let
     services.xserver.enableCtrlAltBackspace = true;
     services.xserver.layout = "us";
     services.xserver.xkbVariant = "altgr-intl";
-    services.xserver.xkbOptions = [ "eurosign:e" "ctrl:swapcaps" ];
+    services.xserver.xkbOptions = "eurosign:e";
 
     services.xserver.displayManager.gdm.enable = true;
     services.xserver.displayManager.job.logToFile = true;
