@@ -25,15 +25,28 @@ let
     services.printing.enable = true;
     services.printing.drivers = [ pkgs.hplip ];
 
-    services.xserver.enable = true;
-    services.xserver.enableCtrlAltBackspace = true;
-    services.xserver.layout = "us";
-    services.xserver.xkbVariant = "altgr-intl";
-    services.xserver.xkbOptions = "eurosign:e";
+    services.xserver = {
+      enable = true;
+      enableCtrlAltBackspace = true;
+      layout = "us";
+      xkbVariant = "altgr-intl";
+      xkbOptions = "eurosign:e";
 
-    services.xserver.displayManager.gdm.enable = true;
-    services.xserver.displayManager.job.logToFile = true;
-    services.xserver.desktopManager.xterm.enable = true;
+      displayManager.gdm.enable = true;
+      displayManager.job.logToFile = true;
+      desktopManager.xterm.enable = true;
+
+      libinput.enable = true;
+      config = ''
+        Section "InputClass"
+          Identifier "mouse accel"
+          Driver "libinput"
+          MatchIsPointer "on"
+          Option "AccelProfile" "flat"
+          Option "AccelSpeed" "0"
+        EndSection
+      '';
+    };
 
     services.upower.enable = true;
 
