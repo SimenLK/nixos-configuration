@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   users.extraGroups = {
-    simkir = { gid = 10000; };
+    simkir = { gid = 1000; };
   };
 
   users.extraUsers.simkir = {
@@ -22,12 +22,10 @@
        "tty"
        "keys"
      ];
-     uid = 10000;
+     uid = 1000;
      isNormalUser = true;
      createHome = true;
      useDefaultShell = false;
      shell = pkgs.fish;
-     openssh.authorizedKeys.keys = [
-     ];
   };
 }
