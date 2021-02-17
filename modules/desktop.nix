@@ -50,6 +50,9 @@ let
 
     services.upower.enable = true;
     services.cron.enable = true;
+    services.cron.systemCronJobs = [
+      "* * * * * simkir $HOME/.nix-profile/bin/mbsync simen > $HOME/.cronlog 2>&1"
+     ];
 
     fonts.fonts = with pkgs; [
       font-awesome
