@@ -49,6 +49,7 @@ let
     };
 
     services.upower.enable = true;
+    services.cron.enable = true;
 
     fonts.fonts = with pkgs; [
       font-awesome
