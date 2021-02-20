@@ -41,7 +41,8 @@ let
         Section "InputClass"
           Identifier "mouse accel"
           Driver "libinput"
-          MatchIsPointer "on"
+          MatchIsTouchPad "on"
+          Option "NaturalScrolling" "true"
           Option "AccelProfile" "flat"
           Option "AccelSpeed" "0"
         EndSection
