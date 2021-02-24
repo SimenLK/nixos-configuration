@@ -36,17 +36,11 @@ let
       displayManager.job.logToFile = true;
       desktopManager.xterm.enable = true;
 
-      libinput.enable = true;
-      config = ''
-        Section "InputClass"
-          Identifier "mouse accel"
-          Driver "libinput"
-          MatchIsTouchPad "on"
-          Option "NaturalScrolling" "true"
-          Option "AccelProfile" "flat"
-          Option "AccelSpeed" "0"
-        EndSection
-      '';
+      libinput = {
+        enable = true;
+        naturalScrolling = true;
+        additionalOptions = ''MatchIsTouchpad "on"'';
+      };
     };
 
     services.upower.enable = true;
