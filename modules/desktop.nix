@@ -34,7 +34,7 @@ let
     services.xserver.displayManager.gdm.enable = true;
     services.xserver.displayManager.job.logToFile = true;
     services.xserver.desktopManager.xterm.enable = true;
-    services.xserver.wacom.enable = true;
+    services.xserver.wacom.enable = false;
 
     services.upower.enable = true;
 
