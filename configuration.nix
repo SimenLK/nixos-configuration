@@ -19,8 +19,6 @@ in
     '';
   };
 
-  security.pam.services.sshd.googleAuthenticator.enable = true;
-
   # boot.initrd.luks.yubikeySupport = true;
   boot.initrd.luks.devices = {
     luksroot = {
@@ -54,8 +52,8 @@ in
       networkmanager.enable = true;
       externalInterface = "eno2";
 
-      docker.enable = false;
-      containerd.enable = true;
+      docker.enable = true;
+      containerd.enable = false;
 
       adminAuthorizedKeys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKiAS30ZO+wgfAqDE9Y7VhRunn2QszPHA5voUwo+fGOf jonas-3"
@@ -97,12 +95,6 @@ in
   '';
 
   programs.singularity.enable = true;
-
-  # nix = {
-  #    package = pkgs.nixFlakes;
-  #    extraOptions = pkgs.lib.optionalString (config.nix.package == pkgs.nixFlakes)
-  #      "experimental-features = nix-command flakes";
-  # };
 
   hardware.bluetooth.config = {
     General = {
