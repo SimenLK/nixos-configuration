@@ -44,6 +44,13 @@ let
 
     services.upower.enable = true;
 
+    services.cron = {
+        enable = true;
+        systemCronJobs = [
+            '' * * * * * root curl https://infoskjerm.k2.itpartner.no/api/devPresent -d '["Simen", "Present"]' >> /tmp/cron.log''
+        ];
+    };
+
     fonts.fonts = with pkgs; [
       font-awesome
       caladea
