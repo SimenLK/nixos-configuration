@@ -47,7 +47,7 @@ let
     services.cron = {
         enable = true;
         systemCronJobs = [
-            '' * * * * * root curl https://infoskjerm.k2.itpartner.no/api/devPresent -d '["Simen", "Present"]' >> /tmp/cron.log''
+            ''* * * * * root curl https://infoskjerm.simkir.k2.itpartner.no/api/devPresent -d '["Simen", "Present"]' >> /tmp/cron.log''
         ];
     };
 
