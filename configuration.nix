@@ -22,13 +22,13 @@ in
   boot = {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
-    # initrd.luks.devices = {
-    #   luksroot = {
-    #     device = "/dev/sda1";
-    #     preLVM = true;
-    #     allowDiscards = true;
-    #   };
-    # };
+    initrd.luks.devices = {
+      luksroot = {
+        device = "/dev/nvme0n1p1";
+        preLVM = true;
+        allowDiscards = true;
+      };
+    };
     loader.grub = {
       enable = false;
       version = 2;
@@ -68,7 +68,6 @@ in
       externalInterface = "eno2";
 
       docker.enable = true;
-      containerd.enable = false;
 
       adminAuthorizedKeys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKiAS30ZO+wgfAqDE9Y7VhRunn2QszPHA5voUwo+fGOf jonas-3"
