@@ -19,12 +19,15 @@ in
     '';
   };
 
+  fileSystems."/".options = [ "noatime" "nodiratime" "discard" ];
+
   boot = {
+    kernelParams = [ "intel_pstate=no_hwp" ];
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     initrd.luks.devices = {
       luksroot = {
-        device = "/dev/nvme0n1p1";
+        device = "/dev/disk/by-uuid/ad562ade-57c8-45a0-851a-4576ee4e6aa9";
         preLVM = true;
         allowDiscards = true;
       };
@@ -32,7 +35,10 @@ in
     loader.grub = {
       enable = false;
       version = 2;
-      device = "/dev/nvme0n1p1";
+      device = "nodev";
+      efiSupport = true;
+      enableCryptodisk = true;
+      gfxmodeEfi = "1024x768";
     };
   };
 

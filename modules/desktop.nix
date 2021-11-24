@@ -13,6 +13,7 @@ let
         load-module module-bluetooth-discover
       '';
     };
+    hardware.opengl.enable = true;
 
     powerManagement = {
       enable = false;
