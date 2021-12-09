@@ -13,6 +13,7 @@ let
         load-module module-bluetooth-discover
       '';
     };
+    hardware.opengl.enable = true;
 
     powerManagement = {
       enable = false;
@@ -21,7 +22,13 @@ let
 
     programs.dconf.enable = true;
 
+    security.pam.services.login.enableGnomeKeyring = true;
+
     services.dbus.enable = true;
+    services.dbus.packages = [ pkgs.gnome3.gnome-keyring pkgs.gcr ];
+
+    services.blueman.enable = true;
+
     services.printing.enable = true;
     services.printing.drivers = [ pkgs.hplip ];
 
