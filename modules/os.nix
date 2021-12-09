@@ -35,6 +35,9 @@ let
     programs.fish.enable = true;
     programs.tmux.enable = true;
 
+    # Gamesss
+    programs.steam.enable = true;
+
     services.openssh.enable = true;
     services.gvfs.enable = true;
     services.fwupd.enable = true;

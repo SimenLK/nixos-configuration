@@ -29,17 +29,22 @@ let
       enable = true;
       enableCtrlAltBackspace = true;
       layout = "us";
-      xkbVariant = "altgr-intl";
+      xkbVariant = "colemak";
       xkbOptions = "eurosign:e";
 
       displayManager.gdm.enable = true;
+      displayManager.gdm.wayland = false;
       displayManager.job.logToFile = true;
       desktopManager.xterm.enable = true;
 
       libinput = {
         enable = true;
-        naturalScrolling = true;
-        additionalOptions = ''MatchIsTouchpad "on"'';
+      mouse = {
+      accelProfile = "flat";
+    };
+        touchpad = {
+      naturalScrolling = true;
+    };
       };
     };
 
@@ -50,12 +55,12 @@ let
      ];
 
     fonts.fonts = with pkgs; [
-      font-awesome
       caladea
       carlito
       cantarell-fonts
       comic-relief
       liberation_ttf
+      font-awesome
       fira
       fira-mono
       fira-code
@@ -68,6 +73,7 @@ let
       noto-fonts
       noto-fonts-emoji
       material-icons
+      opensans-ttf
     ];
   };
 

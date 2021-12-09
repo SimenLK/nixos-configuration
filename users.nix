@@ -4,7 +4,12 @@
     simkir = { gid = 1000; };
   };
 
-  users.extraUsers.simkir = {
+  users.users.admin = {
+    isSystemUser = true;
+  };
+
+  users.users.simkir = {
+     isNormalUser = true;
      description = "Simen Kirkvik";
      home = "/home/simkir";
      group = "simkir";
@@ -22,8 +27,6 @@
        "tty"
        "keys"
      ];
-     uid = 1000;
-     isNormalUser = true;
      createHome = true;
      useDefaultShell = false;
      shell = pkgs.fish;

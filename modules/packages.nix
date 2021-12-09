@@ -26,6 +26,7 @@ let
       libinput
       lshw
       lsof
+      mesa_drivers
       neovim-unwrapped
       netcat
       nettools
