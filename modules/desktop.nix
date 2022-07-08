@@ -7,13 +7,7 @@ let
     hardware.bluetooth.enable = true;
     hardware.pulseaudio = {
       enable = true;
-      extraModules = [ pkgs.pulseaudio-modules-bt ];
-      extraConfig = ''
-        load-module module-bluetooth-policy
-        load-module module-bluetooth-discover
-      '';
     };
-    hardware.opengl.enable = true;
 
     powerManagement = {
       enable = false;
@@ -24,29 +18,44 @@ let
 
     security.pam.services.login.enableGnomeKeyring = true;
 
+    services.blueman.enable = true;
+
     services.dbus.enable = true;
     services.dbus.packages = [ pkgs.gnome3.gnome-keyring pkgs.gcr ];
 
-    services.blueman.enable = true;
+    services.gnome.gnome-keyring.enable = true;
 
     services.printing.enable = true;
     services.printing.drivers = [ pkgs.hplip ];
 
-    services.xserver.enable = true;
-    services.xserver.enableCtrlAltBackspace = true;
-    services.xserver.layout = "us";
-    services.xserver.xkbVariant = "altgr-intl";
-    services.xserver.xkbOptions = "eurosign:e";
+    services.xserver = {
+        enable = true;
+        desktopManager.xterm.enable = true;
+        displayManager.gdm.enable = true;
+        displayManager.job.logToFile = true;
+        enableCtrlAltBackspace = true;
+        layout = "us";
+        wacom.enable = false;
+        xkbOptions = "eurosign:e";
+        xkbVariant = "altgr-intl";
+	videoDrivers = [ "intel" ];
+	config = ''
+            Section "Device"
+              Identifier "Intel Graphics"
+              Driver "intel"
+	      Option "TearFree" "true"
+	    EndSection
+	'';
+    };
 
-    services.xserver.displayManager.gdm.enable = true;
-    services.xserver.displayManager.job.logToFile = true;
-    services.xserver.desktopManager.xterm.enable = true;
-    services.xserver.wacom.enable = false;
+    hardware.opengl = {
+      enable = true;
+    };
 
     services.upower.enable = true;
 
     services.cron = {
-        enable = true;
+        enable = false;
         systemCronJobs = [
             ''* * * * * root curl https://infoskjerm.simkir.k2.itpartner.no/api/devPresent -d '["Simen", "Present"]' >> /tmp/cron.log''
         ];

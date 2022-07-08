@@ -37,7 +37,7 @@ let
       keyutils
       fuse
       home-manager
-      ssmtp
+      msmtp
       google-authenticator
     ];
   };
