@@ -6,5 +6,6 @@
     ./lan.nix
     ./pki.nix
     ./cachix.nix
+    ./services.nix
   ];
 }

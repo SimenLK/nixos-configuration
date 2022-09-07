@@ -13,7 +13,7 @@ in
     hostName = "zelda";
     domain = "itpartner.no";
     search = [ "itpartner.intern" "itpartner.no" ];
-    firewall.allowedTCPPorts = [];
+    firewall.allowedTCPPorts = [ ];
     firewall.extraCommands = ''
       iptables -I INPUT -s 10.1.2.40 -j DROP
     '';
@@ -81,6 +81,11 @@ in
       ];
     };
 
+    services = {
+      enable = true;
+      nuta-nixer.enable = true;
+    };
+
     lan = {
       enable = true;
 
@@ -115,6 +120,7 @@ in
   '';
 
   programs.singularity.enable = true;
+  programs.steam.enable = false;
 
   hardware.bluetooth.settings = {
     General = {
