@@ -1,13 +1,10 @@
 { pkgs, config, lib, ... }:
 with lib;
 let
-  cfg = config.features.services;
+  cfg = config.services.nuta-nixer;
+  nuta-nixer = pkgs.nuta-nixer;
 
   configuration = {
-    nixpkgs.overlays = [
-      (import ./overlays/nuta-nixer.nix)
-    ];
-
     # NOTE(SimenLK): create a container for nuta-nixer
     # containers.nuta-nixer = {
     #   autoStart = true;
@@ -32,12 +29,35 @@ let
   };
 in
 {
-  options.features.services = {
-    enable = mkEnableOption "Enable custom systemd services";
-    nuta-nixer.enable = mkEnableOption "Enable nuta-nixer";
+  options = {
+    services.nuta-nixer = {
+      enable = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          Whether to run nuta-nixer
+        '';
+      };
+    };
   };
 
-  config = mkMerge [
-    (mkIf cfg.enable configuration)
-  ];
+  config = mkIf cfg.enable {
+    users.users.nuta-nixer = {
+      isSystemUser = true;
+      group = "nuta-nixer";
+      description = "Nuta-nixer daemon user";
+    }
+    users.group.nuta-nixer = {};
+
+    systemd.services.nuta-nixer = {
+      description = "Nuta-nixer Daemon";
+      after = [ "network.target" "systemd-resolved.service" ];
+      wantedBy = [ "multi-user.target" ];
+      path = [ dnsmasq ];
+      serviceConfig = {
+        ExecStart = "${nuta-nixer}/bin/Server";
+        Restart = "on-failure";
+      };
+    };
+  };
 }

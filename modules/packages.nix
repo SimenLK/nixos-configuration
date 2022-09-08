@@ -3,6 +3,10 @@ with lib;
 let
   cfg = config.features.packages;
 
+  nixpkgs.overlays = [
+    (import ./overlays/nuta-nixer.nix)
+  ];
+
   configuration = {
     environment.systemPackages = with pkgs; [
       stdenv
