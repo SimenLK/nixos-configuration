@@ -88,6 +88,8 @@
     server=8.8.8.8
   '';
 
+  services.nuta-nixer.enable = false;
+
   programs.singularity.enable = false;
 
   hardware.bluetooth.settings = {

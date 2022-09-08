@@ -3,11 +3,11 @@ with lib;
 let
   cfg = config.features.packages;
 
-  nixpkgs.overlays = [
-    (import ./overlays/nuta-nixer.nix)
-  ];
-
   configuration = {
+    nixpkgs.overlays = [
+      (import ../overlays/nuta-nixer.nix)
+    ];
+
     environment.systemPackages = with pkgs; [
       bc
       bind
@@ -37,6 +37,7 @@ let
       nix-prefetch-git
       nixos-container
       nmap
+      nuta-nixer
       patchelf
       psmisc
       rsync
