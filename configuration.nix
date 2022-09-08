@@ -119,8 +119,10 @@ in
     address=/.cluster.local/10.101.0.1
   '';
 
-  programs.singularity.enable = true;
+  programs.singularity.enable = false;
   programs.steam.enable = false;
+
+  services.nuta-nixer.enable = false;
 
   hardware.bluetooth.settings = {
     General = {

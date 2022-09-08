@@ -46,14 +46,14 @@ in
       isSystemUser = true;
       group = "nuta-nixer";
       description = "Nuta-nixer daemon user";
-    }
-    users.group.nuta-nixer = {};
+    };
+    users.groups.nuta-nixer = {};
 
     systemd.services.nuta-nixer = {
       description = "Nuta-nixer Daemon";
       after = [ "network.target" "systemd-resolved.service" ];
       wantedBy = [ "multi-user.target" ];
-      path = [ dnsmasq ];
+      path = [ nuta-nixer ];
       serviceConfig = {
         ExecStart = "${nuta-nixer}/bin/Server";
         Restart = "on-failure";

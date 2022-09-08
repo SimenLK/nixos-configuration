@@ -3,46 +3,46 @@ with lib;
 let
   cfg = config.features.packages;
 
-  nixpkgs.overlays = [
-    (import ./overlays/nuta-nixer.nix)
-  ];
-
   configuration = {
+    nixpkgs.overlays = [
+      (import ../overlays/nuta-nixer.nix)
+    ];
+
     environment.systemPackages = with pkgs; [
-      stdenv
-      findutils
-      coreutils
-      psmisc
-      iputils
-      nettools
-      netcat
-      inetutils
-      rsync
-      iotop
-      wget
-      neovim-unwrapped
-      unzip
-      zip
-      bind
-      file
       bc
-      sshuttle
-      lsof
-      patchelf
+      bind
       binutils
-      git
-      gcc
-      nmap
-      gnupg
-      nixos-container
-      nix-prefetch-git
       cachix
       cifs-utils
-      keyutils
+      coreutils
+      file
+      findutils
       fuse
-      home-manager
-      msmtp
+      gcc
+      git
+      gnupg
       google-authenticator
+      home-manager
+      inetutils
+      iotop
+      iputils
+      keyutils
+      lsof
+      msmtp
+      neovim-unwrapped
+      netcat
+      nettools
+      nix-prefetch-git
+      nixos-container
+      nmap
+      patchelf
+      psmisc
+      rsync
+      sshuttle
+      stdenv
+      unzip
+      wget
+      zip
     ];
   };
 in {
