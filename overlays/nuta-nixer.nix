@@ -1,17 +1,13 @@
 self: super:
 let
-  pname = "nuta-nixer";
-  version = "0.0.1";
+  name = "nuta-nixer";
+  version = "1.0.1";
 in {
   nuta-nixer = super.buildDotnetModule {
-    pname = "${pname}";
+    pname = "${name}";
+    version = "${version}";
 
-    src = super.fetchFromGitLab {
-      rev = "${version}";
-      owner = "serit";
-      repo = "nuta-nixer";
-      sha256 = "";
-    };
+    src = /serit/Innovasjon/nuta-nixer;
 
     projectFile = "src/Server/Server.fsproj";
     nugetDeps = ./nuta-nixer-deps.nix;
