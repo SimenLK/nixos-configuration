@@ -13,6 +13,7 @@ in {
     nugetDeps = ./nuta-nixer-deps.nix;
 
     dotnet-sdk = super.dotnet-sdk_6;
+    dotnet-runtime = super.dotnet-aspnetcore;
 
     executables = [ "Server" ];
   };
