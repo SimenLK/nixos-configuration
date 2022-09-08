@@ -7,7 +7,7 @@ let
     services.cntlm.netbios_hostname = config.networking.hostName;
 
     services.samba = {
-      enable = true;
+      enable = false;
       enableNmbd = true;
       nsswins = true;
       extraConfig = cfg.samba.extraConfig;

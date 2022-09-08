@@ -39,6 +39,8 @@ let
       xkbVariant = "colemak";
       xkbOptions = "eurosign:e";
 
+      videoDrivers = [ "intel" ];
+
       displayManager.gdm.enable = true;
       displayManager.gdm.wayland = false;
       displayManager.job.logToFile = true;
@@ -46,20 +48,23 @@ let
 
       libinput = {
         enable = true;
-      mouse = {
-      accelProfile = "flat";
-    };
+        mouse = {
+          accelProfile = "flat";
+        };
         touchpad = {
-      naturalScrolling = true;
-    };
+          naturalScrolling = true;
+        };
       };
     };
 
     services.upower.enable = true;
-    services.cron.enable = true;
+    services.cron.enable = false;
     services.cron.systemCronJobs = [
-      "* * * * * simkir $HOME/.nix-profile/bin/mbsync simen > $HOME/.cronlog 2>&1"
+      "*/5 * * * * simkir $HOME/.nix-profile/bin/mbsync simen > $HOME/.cronlog 2>&1"
      ];
+
+    # NOTE(SimenLK): Lorri enables dev environments to activate in dir entry
+    services.lorri.enable = true;
 
     fonts.fonts = with pkgs; [
       caladea

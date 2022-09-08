@@ -4,6 +4,6 @@ let
 in
 {
   networking.extraHosts = ''
-    192.168.1.147 omikron
+    192.168.1.14 omikron
   '';
 }

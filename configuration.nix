@@ -52,7 +52,7 @@
     };
 
     lan = {
-      enable = true;
+      enable = false;
 
       samba.extraConfig = ''
         netbios name = ${config.networking.hostName}
@@ -81,10 +81,14 @@
 
   services.dnsmasq.enable = false;
   services.dnsmasq.extraConfig = ''
-    address=/.cluster.local/10.101.0.1
+    interface=enp0s31f6
+    port=0
+    listen-address=::1,127.0.0.1,192.168.66.1
+    dhcp-range=192.168.66.10,192.168.66.50,12h
+    server=8.8.8.8
   '';
 
-  programs.singularity.enable = true;
+  programs.singularity.enable = false;
 
   hardware.bluetooth.settings = {
     General = {
