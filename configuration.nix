@@ -81,11 +81,6 @@ in
       ];
     };
 
-    services = {
-      enable = true;
-      nuta-nixer.enable = true;
-    };
-
     lan = {
       enable = true;
 
