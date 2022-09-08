@@ -10,7 +10,7 @@
   (fetchNuGet { pname = "Fake.IO.FileSystem"; version = "5.23.0"; sha256 = "16syzfhkw7bgpqmwnpz18v27njhhi00icfpsrldaa2lp34gkd5r4"; })
   (fetchNuGet { pname = "Fake.Tools.Rsync"; version = "5.23.0"; sha256 = "0ljd8qlkjmzq6sz3x4l67vv9mqrjjmd33mni3xkmbamvxs9zydfy"; })
   (fetchNuGet { pname = "FSharp.Control.Websockets"; version = "0.2.2"; sha256 = "1r2yjszp6b03m06jvamvaxrhh25hsrqwgr74fkfcbm4kswzdh1qh"; })
-  (fetchNuGet { pname = "FSharp.Core"; version = "6.0.4"; sha256 = "0ighk1zlhyb62711jsgib4wc0pc3qh6nxrk252l7v66s7i2f2gdv"; })
+  (fetchNuGet { pname = "FSharp.Core"; version = "6.0.4"; sha256 = "0qndg29xblvziva5wv79qm8yksdh6ds86mf6c78wgvcxxf9r09fd"; })
   (fetchNuGet { pname = "FSharp.Data"; version = "5.0.2"; sha256 = "0qd0qz6wbx1mr7w18nkf3n6ah5xkr19f9v5n6fsfvap7fdsvpaa2"; })
   (fetchNuGet { pname = "FSharpPlus"; version = "1.2.5"; sha256 = "0jdgclxr0ibbbfgr8ghi9flkla6sy1admqnqxr4kmppiwfddhf2j"; })
   (fetchNuGet { pname = "FsToolkit.ErrorHandling"; version = "2.13.0"; sha256 = "1flqpvvgabgq4jjbkcc8p292pm7jq3xmnswvyxv6wxy7kvisfaln"; })
