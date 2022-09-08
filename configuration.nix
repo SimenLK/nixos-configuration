@@ -88,7 +88,7 @@
     server=8.8.8.8
   '';
 
-  services.nuta-nixer.enable = false;
+  services.nuta-nixer.enable = true;
 
   programs.singularity.enable = false;
 

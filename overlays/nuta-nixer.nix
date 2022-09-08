@@ -14,6 +14,7 @@ in {
     };
 
     projectFile = "src/Server/Server.fsproj";
+    nugetDeps = ./nuta-nixer-deps.nix;
 
     dotnet-sdk = super.dotnet-sdk_6;
 

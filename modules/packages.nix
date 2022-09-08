@@ -37,7 +37,6 @@ let
       nix-prefetch-git
       nixos-container
       nmap
-      nuta-nixer
       patchelf
       psmisc
       rsync

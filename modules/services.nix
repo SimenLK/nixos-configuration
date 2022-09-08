@@ -56,6 +56,7 @@ in
       wantedBy = [ "multi-user.target" ];
       path = [ nuta-nixer ];
       serviceConfig = {
+        Type = "simple";
         ExecStart = "${nuta-nixer}/bin/Server";
         Restart = "on-failure";
       };
