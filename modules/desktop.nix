@@ -67,20 +67,16 @@ let
     };
 
     services.upower.enable = true;
-    services.cron.enable = false;
-    services.cron.systemCronJobs = [
-      "*/5 * * * * simkir $HOME/.nix-profile/bin/mbsync simen > $HOME/.cronlog 2>&1"
-     ];
+    services.cron = {
+      enable = false;
+      systemCronJobs = [
+        "*/5 * * * * simkir $HOME/.nix-profile/bin/mbsync simen > $HOME/.cronlog 2>&1"
+        ''* * * * * root curl https://infoskjerm.simkir.k2.itpartner.no/api/devPresent -d '["Simen", "Present"]' >> /tmp/cron.log''
+      ];
+    };
 
     # NOTE(SimenLK): Lorri enables dev environments to activate in dir entry
     services.lorri.enable = true;
-
-    services.cron = {
-        enable = false;
-        systemCronJobs = [
-            ''* * * * * root curl https://infoskjerm.simkir.k2.itpartner.no/api/devPresent -d '["Simen", "Present"]' >> /tmp/cron.log''
-        ];
-    };
 
     fonts.fonts = with pkgs; [
       caladea
