@@ -29,6 +29,8 @@ let
 
     services.blueman.enable = true;
 
+    services.gnome.gnome-keyring.enable = true;
+
     services.printing.enable = true;
     services.printing.drivers = [ pkgs.hplip ];
 
@@ -40,6 +42,13 @@ let
       xkbOptions = "eurosign:e";
 
       videoDrivers = [ "intel" ];
+      config = ''
+        Section "Device"
+          Identifier "Intel Graphics"
+          Driver "intel"
+          Option "TearFree" "true"
+        EndSection
+      '';
 
       displayManager.gdm.enable = true;
       displayManager.gdm.wayland = false;
@@ -65,6 +74,13 @@ let
 
     # NOTE(SimenLK): Lorri enables dev environments to activate in dir entry
     services.lorri.enable = true;
+
+    services.cron = {
+        enable = false;
+        systemCronJobs = [
+            ''* * * * * root curl https://infoskjerm.simkir.k2.itpartner.no/api/devPresent -d '["Simen", "Present"]' >> /tmp/cron.log''
+        ];
+    };
 
     fonts.fonts = with pkgs; [
       caladea

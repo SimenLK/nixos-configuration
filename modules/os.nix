@@ -44,7 +44,7 @@ let
     # security.pam.enableEcryptfs = true;
 
     # The NixOS release to be compatible with for stateful data such as databases.
-    system.stateVersion = "21.11";
+    system.stateVersion = "22.05";
     system.autoUpgrade.enable = true;
     nixpkgs.config.allowUnfree = true;
 
@@ -68,14 +68,8 @@ let
   };
 
   mailRelay = {
-    services.ssmtp = {
-      enable = true;
-      useTLS = true;
-      root = cfg.mailRelay.adminEmail;
-      domain = cfg.mailRelay.mailDomain;
-      hostName = cfg.mailRelay.mailGateway;
-      authUser = cfg.mailRelay.mailAuthUser;
-      authPassFile = "/run/keys/ssmtp-authpass";
+    programs.msmtp = {
+      enable = false;
     };
   };
 
@@ -113,26 +107,6 @@ in
 
     mailRelay = {
       enable = mkEnableOption "Enable mail realy using ssmtp";
-
-      adminEmail = mkOption {
-        type = types.str;
-        default = "root";
-      };
-
-      mailDomain = mkOption {
-        type = types.str;
-        default = "local";
-      };
-
-      mailGateway = mkOption {
-        type = types.str;
-        default = "";
-      };
-
-      mailAuthUser = mkOption {
-        type = types.str;
-        default = "";
-      };
     };
 
     nfs = {

@@ -5,7 +5,6 @@ let
   nuta-nixer = pkgs.nuta-nixer;
 
   configuration = {
-
     # NOTE(SimenLK): create a container for nuta-nixer
     # containers.nuta-nixer = {
     #   autoStart = true;

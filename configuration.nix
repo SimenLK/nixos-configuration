@@ -1,4 +1,13 @@
 { pkgs, config, ...}:
+let
+    yubikey = {
+      slot = 2;
+      twoFactor = false;
+      storage = {
+        device = "/dev/nvme0n1p2";
+      };
+    };
+in
 {
   networking = {
     hostName = "church";
