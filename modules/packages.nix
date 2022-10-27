@@ -41,7 +41,6 @@ let
       psmisc
       rsync
       sshuttle
-      ssmtp
       stdenv
       unzip
       wget

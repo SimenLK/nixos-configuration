@@ -111,7 +111,7 @@ in
     };
 
     mailRelay = {
-      enable = mkEnableOption "Enable mail realy using ssmtp";
+      enable = mkEnableOption "Enable mail realy using msmtp";
     };
 
     nfs = {
