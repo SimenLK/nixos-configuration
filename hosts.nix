@@ -58,7 +58,9 @@ in
     10.255.241.114 c0-14 c0-14.cluster.local↲
     10.255.241.115 c0-15 c0-15.cluster.local↲
     10.255.241.116 c0-16 c0-16.cluster.local↲
-↲
+
+    10.255.242.2 ekman ekman.cluster.local
+
     10.255.243.80  ibnfs0  ibnfs0.cluster.local↲
     10.255.243.90  ibbeegfs0 ibbeegfs0.cluster.local
     10.255.243.100 ibekman ibekman.cluster.local↲

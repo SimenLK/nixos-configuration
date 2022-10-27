@@ -53,11 +53,14 @@ in
       description = "Nuta-nixer Daemon";
       after = [ "network.target" "systemd-resolved.service" ];
       wantedBy = [ "multi-user.target" ];
-      path = [ nuta-nixer ];
+      path = [ nuta-nixer pkgs.rsync pkgs.openssh ];
       serviceConfig = {
         Type = "simple";
         ExecStart = "${nuta-nixer}/bin/Server";
         Restart = "on-failure";
+	User = "simen";
+	Group = "simen";
+	WorkingDirectory = "/serit/Innovasjon/nuta-nixer/src/Server";
       };
     };
   };
