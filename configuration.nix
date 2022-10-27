@@ -10,15 +10,25 @@ let
 in
 {
   networking = {
-    hostName = "church";
-    domain = "local";
-    search = [ "local" ];
+    hostName = "zelda";
+    domain = "itpartner.no";
+    search = [ "itpartner.intern" "itpartner.no" ];
+    firewall.allowedTCPPorts = [];
+    firewall.extraCommands = ''
+      iptables -I INPUT -s 10.1.2.40 -j DROP
+    '';
   };
 
   boot = {
-    binfmt.emulatedSystems = [ "aarch64-linux" ];
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
+    initrd.luks.devices = {
+      luksroot = {
+        device = "/dev/nvme0n1p1";
+        preLVM = true;
+        allowDiscards = true;
+      };
+    };
     loader.grub = {
       enable = false;
       version = 2;
@@ -47,7 +57,7 @@ in
 
     pki = {
       enable = false;
-      certmgr.enable = false;
+      certmgr.enable = true;
       certs = {
         foo = { hosts = [ "localhost" ]; };
       };
@@ -58,10 +68,13 @@ in
       externalInterface = "eno2";
 
       docker.enable = true;
+
+      adminAuthorizedKeys = [
+      ];
     };
 
     lan = {
-      enable = false;
+      enable = true;
 
       samba.extraConfig = ''
         netbios name = ${config.networking.hostName}
@@ -90,16 +103,10 @@ in
 
   services.dnsmasq.enable = false;
   services.dnsmasq.extraConfig = ''
-    interface=enp0s31f6
-    port=0
-    listen-address=::1,127.0.0.1,192.168.66.1
-    dhcp-range=192.168.66.10,192.168.66.50,12h
-    server=8.8.8.8
+    address=/.cluster.local/10.101.0.1
   '';
 
-  services.nuta-nixer.enable = true;
-
-  programs.singularity.enable = false;
+  programs.singularity.enable = true;
 
   hardware.bluetooth.settings = {
     General = {

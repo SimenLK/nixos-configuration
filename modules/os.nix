@@ -52,6 +52,11 @@ let
       cleanTmpDir = true;
       initrd.checkJournalingFS = false;
     };
+    nix = {
+      extraOptions = ''
+        experimental-features = nix-command flakes
+      '';
+    };
   };
 
   docker = {

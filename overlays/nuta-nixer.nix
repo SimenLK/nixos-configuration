@@ -1,7 +1,7 @@
 self: super:
 let
   name = "nuta-nixer";
-  version = "1.0.1";
+  version = "1.1.0";
 in {
   nuta-nixer = super.buildDotnetModule {
     pname = "${name}";
