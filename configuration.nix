@@ -97,7 +97,7 @@ in
     server=8.8.8.8
   '';
 
-  services.nuta-nixer.enable = true;
+  services.nuta-nixer.enable = false;
 
   programs.singularity.enable = false;
 
@@ -124,4 +124,3 @@ in
   ];
 
 }
-

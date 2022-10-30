@@ -23,7 +23,7 @@ let
     programs.tmux.enable = true;
 
     # Gamesss
-    programs.steam.enable = true;
+    programs.steam.enable = false;
 
     services.openssh.enable = true;
     services.gvfs.enable = true;
@@ -46,7 +46,15 @@ let
     # The NixOS release to be compatible with for stateful data such as databases.
     system.stateVersion = "22.05";
     system.autoUpgrade.enable = true;
-    nixpkgs.config.allowUnfree = true;
+
+    nix.extraOptions = "experimental-features = nix-command flakes";
+    
+
+    nixpkgs.config = {
+      allowUnfree = true;
+      permittedInsecurePackages = [
+      ];
+    };
 
     boot = {
       cleanTmpDir = true;

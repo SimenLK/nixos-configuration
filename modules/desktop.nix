@@ -7,7 +7,6 @@ let
     hardware.bluetooth.enable = true;
     hardware.pulseaudio = {
       enable = true;
-      extraModules = [ pkgs.pulseaudio-modules-bt ];
       extraConfig = ''
         load-module module-bluetooth-policy
         load-module module-bluetooth-discover
@@ -97,7 +96,7 @@ let
       noto-fonts
       noto-fonts-emoji
       material-icons
-      opensans-ttf
+      open-sans
     ];
   };
 
