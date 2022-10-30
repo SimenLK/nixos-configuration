@@ -37,7 +37,7 @@ let
       enable = true;
       enableCtrlAltBackspace = true;
       layout = "us";
-      xkbVariant = "colemak";
+      xkbVariant = "altgr-intl";
       xkbOptions = "eurosign:e";
 
       videoDrivers = [ "intel" ];
@@ -69,8 +69,8 @@ let
     services.cron = {
       enable = false;
       systemCronJobs = [
-        "*/5 * * * * simkir $HOME/.nix-profile/bin/mbsync simen > $HOME/.cronlog 2>&1"
-        ''* * * * * root curl https://infoskjerm.simkir.k2.itpartner.no/api/devPresent -d '["Simen", "Present"]' >> /tmp/cron.log''
+        "*/5 * * * * simen $HOME/.nix-profile/bin/mbsync simen > $HOME/.cronlog 2>&1"
+        ''* * * * * root curl https://infoskjerm.simen.k2.itpartner.no/api/devPresent -d '["Simen", "Present"]' >> /tmp/cron.log''
       ];
     };
 
