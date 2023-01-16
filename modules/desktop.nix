@@ -97,6 +97,7 @@ let
       noto-fonts-emoji
       material-icons
       open-sans
+      jetbrains-mono
     ];
   };
 
