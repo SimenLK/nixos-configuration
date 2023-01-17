@@ -65,7 +65,7 @@ in
 
     pki = {
       enable = false;
-      certmgr.enable = true;
+      certmgr.enable = false;
       certs = {
         foo = { hosts = [ "localhost" ]; };
       };
@@ -77,8 +77,7 @@ in
 
       docker.enable = true;
 
-      adminAuthorizedKeys = [
-      ];
+      adminAuthorizedKeys = [ ];
     };
 
     lan = {

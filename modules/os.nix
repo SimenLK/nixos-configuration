@@ -49,6 +49,11 @@ let
       cleanTmpDir = true;
       initrd.checkJournalingFS = false;
     };
+    nix = {
+      extraOptions = ''
+        experimental-features = nix-command flakes
+      '';
+    };
   };
 
   docker = {
@@ -103,7 +108,7 @@ in
     };
 
     mailRelay = {
-      enable = mkEnableOption "Enable mail realy using ssmtp";
+      enable = mkEnableOption "Enable mail realy using msmtp";
     };
 
     nfs = {

@@ -35,17 +35,17 @@ let
         displayManager.job.logToFile = true;
         enableCtrlAltBackspace = true;
         layout = "us";
-        wacom.enable = false;
         xkbOptions = "eurosign:e";
         xkbVariant = "altgr-intl";
-	videoDrivers = [ "intel" ];
-	config = ''
-            Section "Device"
+
+        videoDrivers = [ "intel" ];
+        config = ''
+          Section "Device"
               Identifier "Intel Graphics"
               Driver "intel"
-	      Option "TearFree" "true"
-	    EndSection
-	'';
+              Option "TearFree" "true"
+          EndSection
+        '';
     };
 
     hardware.opengl = {
@@ -60,6 +60,9 @@ let
             ''* * * * * root curl https://infoskjerm.simkir.k2.itpartner.no/api/devPresent -d '["Simen", "Present"]' >> /tmp/cron.log''
         ];
     };
+
+    # NOTE(SimenLK): Lorri enables dev environments to activate in dir entry
+    services.lorri.enable = true;
 
     fonts.fonts = with pkgs; [
       font-awesome
@@ -80,6 +83,8 @@ let
       noto-fonts
       noto-fonts-emoji
       material-icons
+      open-sans
+      jetbrains-mono
     ];
   };
 
