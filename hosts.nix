@@ -4,6 +4,8 @@ let
 in
 {
   networking.extraHosts = ''
+    172.29.1.23 coffee-pi
+
     10.1.30.10 fs0-0 fs0-0.itpartner.intern
     10.1.30.10 fs1-0 fs1-0.itpartner.intern
     10.1.8.10  fs2-0 fs2-0.itpartner.intern
@@ -25,8 +27,6 @@ in
     10.1.8.62 k2-2 k2-2.itpartner.intern
     10.1.8.63 k2-3 k2-3.itpartner.intern
     10.1.8.64 k2-4 k2-4.itpartner.intern
-
-    192.168.38.113 omikron omikron.lynx.local
 
     10.0.0.154 ads-mysql
     10.0.0.90 ads-mysql01
