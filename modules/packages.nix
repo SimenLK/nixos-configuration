@@ -1,5 +1,4 @@
 { pkgs, config, lib, ... }:
-with lib;
 let
   cfg = config.features.packages;
 
@@ -12,7 +11,6 @@ let
       bc
       bind
       binutils
-      cachix
       cifs-utils
       coreutils
       file
@@ -35,6 +33,7 @@ let
       netcat
       nettools
       nix-prefetch-git
+      nix-search-cli
       nixos-container
       nmap
       patchelf
@@ -50,16 +49,27 @@ let
       zip
     ];
   };
+
+  devel = {
+    environment.systemPackages = with pkgs; [
+      man-pages
+      man-pages-posix
+    ];
+
+    documentation.dev.enable = true;
+  };
 in {
   options.features.packages = {
-    enable = mkOption {
-      type = types.bool;
+    enable = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = "Enable default system packages";
     };
+    devel.enable = lib.mkEnableOption "Enable Linux API development man pages";
   };
 
-  config = mkMerge [
-    (mkIf cfg.enable configuration)
+  config = lib.mkMerge [
+    (lib.mkIf cfg.enable configuration)
+    (lib.mkIf cfg.devel.enable devel)
   ];
 }

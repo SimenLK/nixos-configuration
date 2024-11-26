@@ -1,5 +1,4 @@
 { pkgs, config, lib, ... }:
-with lib;
 let
   cfg = config.features.desktop;
 
@@ -33,51 +32,36 @@ let
     services.printing.enable = true;
     services.printing.drivers = [ pkgs.hplip ];
 
-    services.xserver = {
-      enable = true;
-      enableCtrlAltBackspace = true;
-      layout = "us";
-      xkbVariant = "altgr-intl";
-      xkbOptions = "eurosign:e";
-
-      videoDrivers = [ "intel" ];
-      config = ''
-        Section "Device"
-          Identifier "Intel Graphics"
-          Driver "intel"
-          Option "TearFree" "true"
-        EndSection
-      '';
-
-      displayManager.gdm.enable = true;
-      displayManager.gdm.wayland = false;
-      displayManager.job.logToFile = true;
-      desktopManager.xterm.enable = true;
-
-      libinput = {
+    services.xserver.displayManager = {
+      gdm = {
         enable = true;
-        mouse = {
-          accelProfile = "flat";
-        };
-        touchpad = {
-          naturalScrolling = true;
+      };
+    };
+
+    services.displayManager = {
+      enable = true;
+      logToFile = true;
+      sddm = {
+        enable = false;
+        wayland = {
+          enable = true;
         };
       };
     };
 
-    services.upower.enable = true;
-    services.cron = {
-      enable = false;
-      systemCronJobs = [
-        "*/5 * * * * simen $HOME/.nix-profile/bin/mbsync simen > $HOME/.cronlog 2>&1"
-        ''* * * * * root curl https://infoskjerm.simen.k2.itpartner.no/api/devPresent -d '["Simen", "Present"]' >> /tmp/cron.log''
-      ];
+    services.libinput = {
+      enable = true;
+      mouse = {
+        accelProfile = "flat";
+      };
+      touchpad = {
+        naturalScrolling = true;
+      };
     };
 
-    # NOTE(SimenLK): Lorri enables dev environments to activate in dir entry
-    services.lorri.enable = true;
+    services.upower.enable = true;
 
-    fonts.fonts = with pkgs; [
+    fonts.packages = with pkgs; [
       caladea
       carlito
       cantarell-fonts
@@ -93,12 +77,62 @@ let
       unifont
       siji
       tamsyn
+      nerdfonts
       noto-fonts
       noto-fonts-emoji
       material-icons
       open-sans
       jetbrains-mono
     ];
+  };
+
+  x11 = {
+    services.xserver = {
+      enable = true;
+      enableCtrlAltBackspace = true;
+      xkb = {
+        layout = "us";
+        variant = "altgr-intl";
+        options = "eurosign:e";
+      };
+
+      videoDrivers = [ "intel" ];
+      config = ''
+        Section "Device"
+          Identifier "Intel Graphics"
+          Driver "intel"
+          Option "TearFree" "true"
+        EndSection
+      '';
+
+      desktopManager.xterm.enable = true;
+    };
+  };
+
+  hyprland = {
+    programs = {
+      hyprland = {
+        enable = true;
+      };
+
+      hyprlock = {
+        enable = true;
+      };
+
+      nm-applet = {
+        enable = true;
+      };
+
+      waybar = {
+        enable = true;
+      };
+    };
+
+    services.pipewire = {
+      enable = true;
+    };
+
+    xdg.portal.wlr.enable = true;
   };
 
   keybase = {
@@ -109,16 +143,19 @@ let
       mountPoint = "%h/keybase";
     };
   };
-
 in
 {
   options.features.desktop = {
-    enable = mkEnableOption "Enable desktop configs";
-    keybase.enable = mkEnableOption "Enable Keybase";
+    enable = lib.mkEnableOption "Enable desktop configs";
+    keybase.enable = lib.mkEnableOption "Enable Keybase";
+    x11.enable = lib.mkEnableOption "Enable x11";
+    hyprland.enable = lib.mkEnableOption "Enable hyprland";
   };
 
-  config = mkMerge [
-    (mkIf cfg.enable configuration)
-    (mkIf cfg.keybase.enable keybase)
+  config = lib.mkMerge [
+    (lib.mkIf cfg.enable configuration)
+    (lib.mkIf cfg.keybase.enable keybase)
+    (lib.mkIf cfg.hyprland.enable hyprland)
+    (lib.mkIf cfg.x11.enable x11)
   ];
 }

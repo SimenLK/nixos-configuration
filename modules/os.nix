@@ -1,5 +1,4 @@
 { config, lib, pkgs, ... }:
-with lib;
 let
   cfg = config.features.os;
 
@@ -53,10 +52,16 @@ let
     };
 
     boot = {
-      cleanTmpDir = true;
+      tmp = {
+        cleanOnBoot = true;
+      };
       initrd.checkJournalingFS = false;
     };
+
     nix = {
+      settings = {
+        auto-optimise-store = true;
+      };
       extraOptions = ''
         experimental-features = nix-command flakes
       '';
@@ -88,7 +93,9 @@ let
       firewall.allowedUDPPorts = [ 111 2049 24007 24008 ];
     };
 
-    environment.systemPackages = with pkgs; [ nfs-utils ];
+    environment.systemPackages = with pkgs; [
+      nfs-utils
+    ];
 
     services.nfs.server = {
       enable = true;
@@ -99,42 +106,42 @@ let
 in
 {
   options.features.os = {
-    networkmanager.enable = mkEnableOption "Enable NetworkManager";
+    networkmanager.enable = lib.mkEnableOption "Enable NetworkManager";
 
-    docker.enable = mkEnableOption "Enable Docker";
+    docker.enable = lib.mkEnableOption "Enable Docker";
 
-    externalInterface = mkOption {
-      type = types.nullOr types.str;
+    externalInterface = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
       default = null;
       description = "External interface (i.e. for Docker nat)";
     };
 
-    adminAuthorizedKeys = mkOption {
-      type = types.listOf types.str;
+    adminAuthorizedKeys = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
       default = [];
     };
 
     mailRelay = {
-      enable = mkEnableOption "Enable mail realy using msmtp";
+      enable = lib.mkEnableOption "Enable mail realy using msmtp";
     };
 
     nfs = {
-      enable = mkEnableOption "Enable nfs fileserver";
+      enable = lib.mkEnableOption "Enable nfs fileserver";
 
-      exports = mkOption {
-        type = types.str;
+      exports = lib.mkOption {
+        type = lib.types.str;
         default = "";
       };
     };
   };
 
-  config = mkMerge [
+  config = lib.mkMerge [
     configuration
 
-    (mkIf cfg.docker.enable docker)
+    (lib.mkIf cfg.docker.enable docker)
 
-    (mkIf cfg.mailRelay.enable mailRelay)
+    (lib.mkIf cfg.mailRelay.enable mailRelay)
 
-    (mkIf cfg.nfs.enable nfs)
+    (lib.mkIf cfg.nfs.enable nfs)
   ];
 }
