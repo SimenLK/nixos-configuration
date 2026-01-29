@@ -7,6 +7,5 @@
     ./laptop.nix
     ./lan.nix
     ./pki.nix
-    ./cachix.nix
   ];
 }

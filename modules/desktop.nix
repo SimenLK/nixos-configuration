@@ -26,22 +26,6 @@ let
         support32Bit = true;
       };
       pulse.enable = true;
-      wireplumber = {
-        enable = true;
-        # Need to generate lua config for bluetooth codecs
-        configPackages = [
-          (pkgs.writeTextDir "share/wireplumber/bluetooth.lua.d/51-bluez-config.lua" ''
-            bluez_monitor.properties = {
-              ["bluez5.enable-sbc-xq"] = true,
-              ["bluez5.enable-msbc"] = true,
-              ["bluez5.enable-hw-volume"] = true,
-              ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
-            }
-          '')
-        ];
-      };
-      # TODO: Is this needed?
-      jack.enable = true;
     };
 
     environment.systemPackages = with pkgs; [
@@ -50,13 +34,14 @@ let
     ];
 
     powerManagement = {
-      enable = false;
+      enable = true;
       cpuFreqGovernor = "ondemand";
     };
 
     programs.dconf.enable = true;
 
     security.pam.services.login.enableGnomeKeyring = true;
+    services.gnome.gnome-keyring.enable = true;
 
     services.dbus.enable = true;
     services.dbus.packages = [
@@ -73,7 +58,6 @@ let
 
     services.displayManager = {
       enable = true;
-      logToFile = true;
     };
 
     fonts.packages = with pkgs; [
@@ -81,40 +65,34 @@ let
       ubuntu-classic
       vollkorn
       font-awesome
-      caladea
-      carlito
-      cantarell-fonts
-      comic-relief
-      liberation_ttf
       fira
       fira-mono
       fira-code
       fira-code-symbols
-      dejavu_fonts
       powerline-fonts
-      powerline-symbols
-      unifont
-      siji
-      tamsyn
-      noto-fonts
-      noto-fonts-color-emoji
       material-icons
       nerd-fonts.jetbrains-mono
       nerd-fonts._0xproto
       nerd-fonts.droid-sans-mono
+      iosevka
     ];
 
-    security.pam.services.swaylock = {
-      text = ''
-        auth include login
-      '';
+    hardware = {
+      logitech = {
+        wireless = {
+          enable = true;
+          enableGraphical = true;
+        };
+      };
     };
+
     services.xserver.xkb = lib.mkDefault {
       layout = "us";
       variant = "altgr-intl";
       options = "eurosign:e";
     };
 
+    security.polkit.enable = true;
   };
 
   x11 = {
@@ -179,6 +157,19 @@ let
 
     environment.sessionVariables = {
       MOZ_ENABLE_WAYLAND = "1";
+    };
+
+    programs = {
+      # NOTE: These broke screen sharing at some point
+      chromium = {
+        enablePlasmaBrowserIntegration = pkgs.lib.mkForce false;
+      };
+
+      firefox = {
+        nativeMessagingHosts.packages = pkgs.lib.mkForce [];
+      };
+
+      kdeconnect.enable = true;
     };
   };
 

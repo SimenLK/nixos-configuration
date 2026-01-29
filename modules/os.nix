@@ -20,7 +20,24 @@ let
       firewall.trustedInterfaces = [
         "docker0"
         "cbr0"
-        "veth+"
+        "veth+" 
+        "tailscale0" 
+      ];
+      resolvconf = {
+        enable = false;
+      };
+      nameservers = [
+       "100.100.100.100"
+      ];
+    };
+
+    services.resolved = {
+      enable = true;
+      fallbackDns = [
+       "8.8.8.8"
+       "1.1.1.1"
+       "8.8.4.4"
+       "1.0.0.1"
       ];
     };
 
@@ -32,6 +49,7 @@ let
     programs.vim.enable = true;
     programs.fish.enable = true;
     programs.tmux.enable = true;
+    programs.gnupg.agent.enable = true;
 
     services.openssh.enable = true;
     services.gvfs.enable = true;
@@ -62,7 +80,6 @@ let
     };
 
     nix = {
-      #package = pkgs.nixVersions.stable;
       # package = pkgs.nixVersions.nix_2_23;
       settings = {
         trusted-users = [
@@ -76,7 +93,7 @@ let
         ];
       };
       extraOptions = ''
-        experimental-features = nix-command flakes impure-derivations
+        experimental-features = nix-command flakes impure-derivations pipe-operators
         connect-timeout = 5
         log-lines = 25
         warn-dirty = false
@@ -87,7 +104,6 @@ let
 
   docker = {
     virtualisation.docker.enable = cfg.docker.enable;
-    virtualisation.docker.autoPrune.enable = true;
     virtualisation.docker.extraOptions = "--insecure-registry 10.0.0.0/8";
     networking = {
       nat.enable = true;

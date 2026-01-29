@@ -1,4 +1,4 @@
-{pkgs, stdenv, fetchurl, config, ...}:
+{ pkgs, ...}:
 let
 in
   {
@@ -6,6 +6,5 @@ in
 
     boot = {
       extraModulePackages = [];
-      # kernelPackages = pkgs.linuxPackages_5_9;
     };
   }

@@ -5,41 +5,42 @@ let
 
   configuration = {
     environment.systemPackages = with pkgs; [
-      stdenv
-      findutils
-      coreutils
-      psmisc
-      iputils
-      nettools
-      netcat
-      inetutils
-      rsync
-      iotop
-      wget
-      neovim-unwrapped
-      helix
-      unzip
-      zip
-      bind
-      file
       bc
-      sshuttle
-      lsof
-      patchelf
+      bind
       binutils
-      git
-      gcc
-      nmap
-      gnupg
-      nixos-container
-      nix-prefetch-git
-      cachix
-      attic-client
       cifs-utils
-      keyutils
+      coreutils
+      ffmpeg
+      file
+      findutils
       fuse
-      home-manager
+      gcc
+      gitFull
+      gnupg
       google-authenticator
+      home-manager
+      inetutils
+      iotop
+      iputils
+      keyutils
+      lsof
+      man-pages
+      man-pages-posix
+      neovim-unwrapped
+      netcat
+      nettools
+      nix-prefetch-git
+      nixos-container
+      nmap
+      patchelf
+      psmisc
+      rsync
+      sshuttle
+      stdenv
+      unzip
+      wget
+      zellij
+      zip
     ];
   };
 in {

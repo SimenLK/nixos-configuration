@@ -1,23 +1,37 @@
-{ pkgs, config, ...}:
+{ pkgs, ...}:
 {
+  imports = [
+    ./.
+    ./kernel.nix
+    <nixos-hardware/common/cpu/amd>
+    <nixos-hardware/common/cpu/amd/pstate.nix>
+    <nixos-hardware/common/cpu/amd/zenpower.nix>
+    <nixos-hardware/common/gpu/amd>
+    ./hardware-configuration.nix
+  ];
+
   networking = {
-    hostName = "nixos";
-    domain = "oceanbox.io";
-    search = [ "oceanbox.io" ];
-    firewall.allowedTCPPorts = [ ];
+    hostName = "church";
+    domain = "obx";
+    search = [ "obx" ];
+    firewall.allowedTCPPorts = [];
+    firewall.allowedUDPPorts = [];
     firewall.extraCommands = '' '';
   };
 
   boot = {
-    loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
-    # initrd.luks.devices = {
-    #   luksroot = {
-    #     device = "/dev/nvme0n1p1";
-    #     preLVM = true;
-    #     allowDiscards = true;
-    #   };
-    # };
+    loader.systemd-boot = {
+      enable = true;
+      configurationLimit = 5;
+    };
+    initrd.luks.devices = {
+      luksroot = {
+        device = "/dev/nvme0n1p1";
+        preLVM = true;
+        allowDiscards = true;
+      };
+    };
   };
 
   console = {
@@ -41,92 +55,97 @@
 
   time.timeZone = "Europe/Oslo";
 
-  features = {
-    desktop.enable = false;
-    laptop.enable = false;
-    desktop.wayland.enable = false;
-    desktop.hyprland.enable = false;
-    cachix.enable = false;
+  hardware.enableRedistributableFirmware = true;
 
-    pki = {
-      enable = false;
-      certmgr.enable = true;
-      certs = {
-        foo = { hosts = [ "localhost" ]; };
-      };
-    };
+  features = {
+    desktop.enable = true;
+    laptop.enable = false;
+    desktop.keybase.enable = true;
+    desktop.plasma.enable = true;
 
     os = {
+      externalInterface = "eno2";
       networkmanager.enable = true;
-      externalInterface = "enp2s0f1";
 
       docker.enable = true;
 
       adminAuthorizedKeys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKiAS30ZO+wgfAqDE9Y7VhRunn2QszPHA5voUwo+fGOf jonas-3"
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDULdlLC8ZLu9qBZUYsjhpr6kv5RH4yPkekXQdD7prkqapyoptUkO1nOTDwy7ZsKDxmp9Zc6OtdhgoJbowhGW3VIZPmooWO8twcaYDpkxEBLUehY/n8SlAwBtiHJ4mTLLcynJMVrjmTQLF3FeWVof0Aqy6UtZceFpLp1eNkiHTCM3anwtb9+gfr91dX1YsAOqxqv7ooRDu5rCRUvOi4OvRowepyuBcCjeWpTkJHkC9WGxuESvDV3CySWkGC2fF2LHkAu6SFsFE39UA5ZHo0b1TK+AFqRFiBAb7ULmtuno1yxhpBxbozf8+Yyc7yLfMNCyBpL1ci7WnjKkghQv7yM1xN2XMJLpF56v0slSKMoAs7ThoIlmkRm/6o3NCChgu0pkpNg/YP6A3HfYiEDgChvA6rAHX6+to50L9xF3ajqk4BUzWd/sCk7Q5Op2lzj31L53Ryg8vMP8hjDjYcgEcCCsGOcjUVgcsmfC9LupwRIEz3aF14AWg66+3zAxVho8ozjes= jonas.juselius@juselius.io"
+        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC2tox0uyFGfU1zPNU6yAVSoGOUkeU959aiTMrqu1U9MCCOP2o4IhZIlRpZ08XVnUU/AhycCUF4HgGqdcco8oIVX0P0Cn83KJoD/DOqAiz+1VwIUUV1ylrRdNqCgf4wnmLni3sUPHJdQnuq57+pzDDjHMr9CcBL2KzOHD/QanfR+jZmv9K3OS5oDcWquSCziXkpbkWQURPactmtyzGK2FRRxONZgYrB8gRTDstlWQg/t6GHNVelzuJ7SEf+t8pk/S2e/XAvfZyRJhrVJ35iZKpmxkIn5v0g1Z+z0yX/KRSAPRtNg9uM44cmto77MFx7iFs0CuleL3zHvRvZYW1ZnsKAiP07UkEK87luMpkTzFr9CSHJGpgk1RZYA3qidQti44n6NU9YRNhzO4v+KQE6XDqO80gZCJboSXr3fnYn/QHpPXzK5JcZNWmClyMURYj10qv9So3Fh0o3LV5GThA6JgN874vUywUZanPEdn8ePBcAsjLRzA4YBGEuvJCc6FELSuY2s+/pFba8NXQvrOdJKSRC0g5USQFfaWDln4Q4zZ1G5z76p1u6GtRWxvakkUQ0fze9KAW7msxeKaw+B7uMtyvCL8V2zEE8WKFP1sNyYEe7Sgp3RVfym2VPMNTZVhEImfM/3D+WbzfoJztnJvFKXeeMCcne4G8swyef3o1s3b+CvQ== ski027@uit.no"
       ];
-      nfs.enable = false;
-      # nfs.exports = ''
-      #   /exports 10.1.1.0/24(insecure,ro,async,crossmnt,no_subtree_check,fsid=0,no_root_squash)
-      # '';
     };
   };
 
-  services.dnsmasq.enable = false;
-  services.dnsmasq.settings = {
-      address = [
-        "/.local/127.0.0.1"
-        "/.local.oceanbox.io/127.0.0.1"
-      ];
-      # addn-hosts = "/etc/hosts.adhoc";
+  programs = {
+    chromium = {
+      enable = true;
+    };
+
+    firefox = {
+      enable = true;
+    };
+
+    # Trying gnu agent
+    # ssh.startAgent = true;
+
+    steam.enable = true;
+
+    singularity.enable = true;
   };
 
-  programs.singularity.enable = false;
+  systemd.services = {
+    tailscaled = {
+      after = [
+        "systemd-resolved.service"
+      ];
+    };
 
-  hardware.bluetooth.settings = {
-    General = {
-      AutoConnct = true;
-      MultiProfile = "multiple";
+    nix-daemon = {
+      serviceConfig.EnvironmentFile = "/to/secrets.txt";
     };
   };
 
-  services.pcscd.enable = false; # For Yubikey ykman
-
-  security.pam.yubico = {
-    enable = false;
-    mode = "client"; # "challenge-response";
-    id = "12345";
-    control = "sufficient";
-  };
-
-  services.udev.extraRules = ''
-      ACTION=="remove",\
-      ENV{ID_BUS}=="usb",\
-      ENV{ID_MODEL_ID}=="0407",\
-      ENV{ID_VENDOR_ID}=="1050",\
-      ENV{ID_VENDOR}=="Yubico",\
-      RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
-  '';
-
-  nixpkgs.config.allowUnfreee = true;
-
-  services.tailscale =  {
+  services.tailscale = {
     enable = true;
     useRoutingFeatures = "client";
     extraUpFlags = [
       "--login-server=https://headscale.svc.oceanbox.io"
-      "--accept-dns=true"
       "--accept-routes"
     ];
   };
 
-  imports = [
-    ./.
-    ./kernel.nix
-    ./hardware-configuration.nix
-    #"${builtins.fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; }}/lenovo/thinkpad/x1/7th-gen"
-  ];
+  services.dnsmasq = {
+    enable = false;
+    settings = {
+      address = [
+        "/.local/127.0.0.1"
+        "/.local.oceanbox.io/127.0.0.1"
+        "/.vtn.local/172.16.239.50"
+        "/.tos.local/10.255.241.10"
+      ];
+    };
+  };
 
+  services.lorri.enable = true;
+
+  services.avahi.enable = true;
+
+  services.pcscd.enable = true; # For Yubikey ykman
+  security.pam.yubico = {
+    enable = false;
+    mode = "client"; # "challenge-response";
+    id = "34717949";
+    control = "sufficient";
+  };
+  services.udev = {
+    packages = with pkgs; [
+      yubikey-personalization
+    ];
+  };
+
+  hardware.keyboard.zsa.enable = true;
+
+  documentation = {
+    dev.enable = true;
+  };
 }
-
