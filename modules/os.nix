@@ -76,7 +76,7 @@ let
         ];
       };
       extraOptions = ''
-        experimental-features = nix-command flakes impure-derivations
+        experimental-features = nix-command flakes impure-derivations pipe-operators
         connect-timeout = 5
         log-lines = 25
         warn-dirty = false
